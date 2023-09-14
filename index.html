@@ -16,12 +16,21 @@
     <H1>Welcome to Tailored Travel</H1>
     <p></p>
     <div id="map" style= "width:900px;height:580px;"></div>
+    <form>
+        <select id="business">
+            <option value="restaurant">Restaurants</option>
+            <option value="coffee">Coffee Shops</option>
+            <option value="hotel">Hotels</option>
+            <option value="market">Markets</option>
+        </select>
+        <button id="submit">Submit</button>
+    </form>
     <script> 
      // Creating map options
      var mapOptions = {
             center: [17.385044, 78.486671],
             zoom: 10
-         }
+         
 
          // Creating a map object
          var map = new L.map('map', mapOptions);
@@ -31,16 +40,7 @@
          
          // Adding layer to the map
          map.addLayer(layer);
-         
+     }
          </script>
-         <form>
-            <select id="business">
-                <option value="restaurant">Restaurants</option>
-                <option value="coffee">Coffee Shops</option>
-                <option value="hotel">Hotels</option>
-                <option value="market">Markets</option>
-            </select>
-            <button id="submit">Submit</button>
-        </form>
 </body>
 </html>
