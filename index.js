@@ -1,0 +1,87 @@
+
+// get users location 
+const successCallback = (position) => {
+    console.log(position);
+}
+
+const errorCallback = (error) => {
+    console.log(error);
+}
+
+navigator.geolocation.getCurrentPosition(successCallback, errorCallback); 
+console.log('this is working')
+
+
+// leaflet map 
+const myMap = {
+	coordinates: [],
+	businesses: [],
+	map: {},
+	markers: {},
+
+	// build leaflet map
+	buildMap() {
+		this.map = L.map('map', {
+		center: this.coordinates,
+		zoom: 11,
+		});
+		// add openstreetmap tiles
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution:
+			'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+		minZoom: '15',
+		}).addTo(this.map)
+		// create and add geolocation marker
+		const marker = L.marker(this.coordinates)
+		marker
+		.addTo(this.map)
+		.bindPopup('<p1><b>You are here</b><br></p1>')
+		.openPopup()
+	},
+
+    // add business markers
+	addMarkers() {
+		for (var i = 0; i < this.businesses.length; i++) {
+		this.markers = L.marker([
+			this.businesses[i].lat,
+			this.businesses[i].long,
+		])
+			.bindPopup(`<p1>${this.businesses[i].name}</p1>`)
+			.addTo(this.map)
+		}
+	},
+}
+
+//get coordinates using geolocation
+async function getCoords(){
+	const pos = await new Promise((resolve, reject) => {
+		navigator.geolocation.getCurrentPosition(resolve, reject)
+	});
+	return [pos.coords.latitude, pos.coords.longitude]
+}
+
+
+// get foursquare businesses
+
+
+// process foursquare array
+
+
+// event handlers
+// window startup 
+ window.onload = async () => {
+    let coords = await getCoords ()
+    myMap.coordinates = coords
+    myMap.buildMap ()
+ }
+
+
+// business submit button
+document.getElementById('submit').addEventListener('click', async (event) => {
+	event.preventDefault()
+	let business = document.getElementById('business').value
+	let data = await getFoursquare(business)
+	myMap.businesses = processBusinesses(data)
+	myMap.addMarkers()
+})
+

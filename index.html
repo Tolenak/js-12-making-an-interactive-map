@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="index.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+</head>
+<body>
+    <H1>Welcome to Tailored Travel</H1>
+    <p></p>
+    <div id="map" style= "width:900px;height:580px;"></div>
+    <script> 
+     // Creating map options
+     var mapOptions = {
+            center: [17.385044, 78.486671],
+            zoom: 10
+         }
+
+         // Creating a map object
+         var map = new L.map('map', mapOptions);
+         
+         // Creating a Layer object
+         var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+         
+         // Adding layer to the map
+         map.addLayer(layer);
+         
+         </script>
+         <form>
+            <select id="business">
+                <option value="restaurant">Restaurants</option>
+                <option value="coffee">Coffee Shops</option>
+                <option value="hotel">Hotels</option>
+                <option value="market">Markets</option>
+            </select>
+            <button id="submit">Submit</button>
+        </form>
+</body>
+</html>
